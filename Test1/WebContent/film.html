@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script type="text/javascript">
+	var app = angular.module("filmApp", []);
+	app.controller("filmServlet", function($scope, $http) {
+		$scope.searchText = "";
+		$http({
+			url : "FilmServlet",
+			method : "GET"
+		}).then(function(response) {
+			$scope.filmlist = response.data;
+			console.log(response);
+
+		}, function(response) {
+			console.log(response);
+		});
+		$scope.search = function(item) {
+			var id = item.film_id.toString();
+			if (id.includes($scope.searchText)
+					|| item.title.toLowerCase().includes(
+							$scope.searchText.toLowerCase())) {
+				return true;
+			}
+			return false;
+		}
+	});
+</script>
+</head>
+<body data-ng-app="filmApp" data-ng-controller="filmServlet">
+	<div class="container">
+		<h1 align="center">Table Films</h1>
+		<hr>
+		<a href="filmForm.html" class="btn btn-info" role="button">Add New
+			Film</a> <input type="text" data-ng-model="searchText"
+			placeholder="Search" class="form-control" />
+		<table class="table table-bordered">
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Release Year</th>
+				<th>Language Id</th>
+				<th>Original Language Id</th>
+				<th>Rental Duration</th>
+				<th>Rental Rate</th>
+				<th>Length</th>
+				<th>Replacement Cost</th>
+				<th>Rating</th>
+				<th>Special Features</th>
+				<th>Last Update</th>
+				<th>Actions</th>
+			</tr>
+			<tr data-ng-repeat="item in filmlist | filter:search">
+				<td>{{item.film_id}}</td>
+				<td>{{item.title}}</td>
+				<td>{{item.description}}</td>
+				<td>{{item.release_year}}</td>
+				<td>{{item.language_id}}</td>
+				<td>{{item.original_language_id}}</td>
+				<td>{{item.rental_duration}}</td>
+				<td>{{item.rental_rate}}</td>
+				<td>{{item.length}}</td>
+				<td>{{item.replacement_cost}}</td>
+				<td>{{item.rating}}</td>
+				<td>{{item.special_features}}</td>
+				<td>{{item.last_update}}</td>
+				<td><a href="UpdateServlet?film_id={{item.film_id}}"
+					+ {{item.film_id}}
+					class="btn btn-warning" role="button">Update</a>
+					<a href="DeleteServlet?film_id={{item.film_id}}"
+					+ {{item.film_id}}
+					class="btn btn-danger" role="button">Delete</a>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
