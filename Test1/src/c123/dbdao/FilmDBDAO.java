@@ -126,19 +126,19 @@ public class FilmDBDAO implements FilmDAO {
 		System.out.println("done execute 1");
 		PreparedStatement ps2 = con.prepareStatement(SqlQueries.DELETE_FILM_CATEGORY);
 		ps2.setInt(1, film_id);
-		ps2.executeQuery();
+		ps2.executeUpdate();
 		System.out.println("done execute 2");
 		PreparedStatement ps3 = con.prepareStatement(SqlQueries.DELETE_FILM_RENTAL);
 		ps3.setInt(1, film_id);
-		ps3.executeQuery();
+		ps3.executeUpdate();
 		System.out.println("done execute 3");
 		PreparedStatement ps4 = con.prepareStatement(SqlQueries.DELETE_FILM_INVENTORY);
 		ps4.setInt(1, film_id);
-		ps4.executeQuery();
+		ps4.executeUpdate();
 		System.out.println("done execute 4");
 		PreparedStatement ps5 = con.prepareStatement(SqlQueries.DELETE_FILM_BY_ID);
 		ps5.setInt(1, film_id);
-		ps5.executeQuery();
+		ps5.executeUpdate();
 		System.out.println("done execute 5");
 		return status;
 	}
