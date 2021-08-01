@@ -31,12 +31,6 @@
 			return false;
 		}
 	});
-	$scope.toggleSort = function(index) {
-		if ($scope.sortColumn === $scope.films[index]) {
-			$scope.reverse = !$scope.reverse;
-		}
-		$scope.sortColumn = $scope.films[index];
-	}
 </script>
 </head>
 <body data-ng-app="filmApp" data-ng-controller="filmServlet">
