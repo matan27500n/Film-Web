@@ -24,7 +24,7 @@ public class DeleteServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		int film_id = Integer.parseInt(request.getParameter("film_id").trim());
-		/*System.out.println("film id 123: " + film_id);
+		System.out.println("film id 123: " + film_id);
 		System.out.println("hello world");
 		FilmServiceImp filmServiceImp = new FilmServiceImp();
 		System.out.println("servlet 1");
@@ -36,7 +36,7 @@ public class DeleteServlet extends HttpServlet {
 		} else {
 			out.println("Sorry! unable to delete record");
 			// response.sendRedirect("film.html");
-		}*/
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
