@@ -46,5 +46,4 @@ public class FilmServlet extends HttpServlet {
 		}
 		out.close();
 	}
-
 }

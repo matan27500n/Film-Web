@@ -31,6 +31,12 @@
 			return false;
 		}
 	});
+	$scope.toggleSort = function(index) {
+		if ($scope.sortColumn === $scope.films[index]) {
+			$scope.reverse = !$scope.reverse;
+		}
+		$scope.sortColumn = $scope.films[index];
+	}
 </script>
 </head>
 <body data-ng-app="filmApp" data-ng-controller="filmServlet">
@@ -43,7 +49,8 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>ID</th>
-				<th>Title</th>
+				<th data-ng-repeat="item in films"><a
+					data-ng-click="toggleSort($index)">{{ films[$index] }}</a>Title</th>
 				<th>Description</th>
 				<th>Release Year</th>
 				<th>Language Id</th>
