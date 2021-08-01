@@ -8,6 +8,10 @@ import c123.model.Film;
 
 public class FilmServiceImp implements FilmService {
 
+	public FilmServiceImp() {
+		System.out.println("hello world123");
+	}
+
 	private FilmDBDAO filmDBDAO = new FilmDBDAO();
 
 	@Override
@@ -47,7 +51,9 @@ public class FilmServiceImp implements FilmService {
 	public int deleteFilm(int film_id) {
 		int status = 0;
 		try {
+			System.out.println("imp 1");
 			status = filmDBDAO.deleteFilm(film_id);
+			System.out.println("imp 2");
 		} catch (SQLException e) {
 			System.err.println(e);
 		}

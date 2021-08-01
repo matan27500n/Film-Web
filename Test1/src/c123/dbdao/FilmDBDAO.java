@@ -114,18 +114,32 @@ public class FilmDBDAO implements FilmDAO {
 
 	@Override
 	public int deleteFilm(int film_id) throws SQLException {
+		System.out.println("hello");
 		int status = 1;
 		Connection con = ConnectionUtil.getConnection();
+		System.out.println("starting");
 		PreparedStatement ps1 = con.prepareStatement(SqlQueries.DELETE_FILM_ACTOR);
-		ps1.setInt(2, film_id);
+		System.out.println("starting2");
+		ps1.setInt(1, film_id);
+		System.out.println("starting3");
+		ps1.executeUpdate();
+		System.out.println("done execute 1");
 		PreparedStatement ps2 = con.prepareStatement(SqlQueries.DELETE_FILM_CATEGORY);
 		ps2.setInt(1, film_id);
+		ps2.executeQuery();
+		System.out.println("done execute 2");
 		PreparedStatement ps3 = con.prepareStatement(SqlQueries.DELETE_FILM_RENTAL);
-		ps3.setInt(3, film_id);
+		ps3.setInt(1, film_id);
+		ps3.executeQuery();
+		System.out.println("done execute 3");
 		PreparedStatement ps4 = con.prepareStatement(SqlQueries.DELETE_FILM_INVENTORY);
 		ps4.setInt(1, film_id);
+		ps4.executeQuery();
+		System.out.println("done execute 4");
 		PreparedStatement ps5 = con.prepareStatement(SqlQueries.DELETE_FILM_BY_ID);
 		ps5.setInt(1, film_id);
+		ps5.executeQuery();
+		System.out.println("done execute 5");
 		return status;
 	}
 }
