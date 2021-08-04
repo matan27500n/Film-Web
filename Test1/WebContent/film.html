@@ -73,54 +73,6 @@
 	        }
 	    }
 	}
-
-	var currentIndex = 0;
-	var newIndex = 0;
-	var slider = document.getElementsByClassName("slider")[0];
-	var slides = document.getElementsByClassName("slider_slide");
-	var sliderNavButtons = document.getElementsByClassName("slider_nav");
-	var slidesLength = slides.length;
-
-	var pagination = document.getElementsByClassName("slider_pagination")[0];
-
-	if (!pagination) {
-	   pagination = document.createElement("div");
-	   pagination.className = "slider_pagination";
-	   slider.appendChild(pagination);
-	}
-
-	pagination.onclick = function(e) {
-	   var target = e.target;
-	   if (target.classList.contains("slider_pagination_btn")) {
-	      newIndex = Number(target.getAttribute("data-index"));
-	      navigateSlider();
-	   }
-	}
-
-	var paginationHTML = [];
-	for (var i = 0; i < slidesLength; i++) {
-	   paginationHTML.push('<button class="slider_pagination_btn" data-index="' + i + '"></button>');
-	}
-	pagination.innerHTML = paginationHTML.join("")
-
-	function navigateSlider() {
-	   if (newIndex === -1) newIndex = slidesLength - 1;
-	   else if (newIndex === slidesLength) newIndex = 0
-	   slides[currentIndex].style.display = "none";
-	   slides[newIndex].style.display = "block";
-	   currentIndex = newIndex;
-	}
-
-	sliderNavButtons[0].onclick = function() {
-	   newIndex--;
-	   navigateSlider();
-	}
-
-	sliderNavButtons[1].onclick = function() {
-	   newIndex++;
-	   navigateSlider();
-	}
-
 </script>
 <style type="text/css">
 table {
@@ -172,7 +124,7 @@ th {
 		<a href="filmForm.html" class="btn btn-info" role="button">Add New
 			Film</a> <input type="text" data-ng-model="searchText"
 			placeholder="Search" class="form-control" />
-		<table id="sortable">
+		<table id="sortable" class="tableClass">
 			<tr>
 				<th onclick="sortBy(0)">ID</th>
 				<th onclick="sortBy(1)">Title</th>
@@ -209,12 +161,6 @@ th {
 					class="btn btn-danger" role="button">Delete</a>
 			</tr>
 		</table>
-		<div class="slider"></div>
-		<div class="slider_pagination">
-			<button class="slider_pagination_btn"></button>
-			<button class="slider_pagination_btn slider_pagination_btn--sel"></button>
-			<button class="slider_pagination_btn"></button>
-		</div>
 	</div>
 </body>
 </html>
