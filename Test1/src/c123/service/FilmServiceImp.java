@@ -65,4 +65,16 @@ public class FilmServiceImp implements FilmService {
 			System.err.println(e);
 		}
 	}
+
+	@Override
+	public List<Film> selectFilmsByColumn(String column) {
+		System.out.println("service: " + column);
+		List<Film> films = new ArrayList<Film>();
+		try {
+			films = filmDBDAO.selectFilmsOrderByColumn(column);
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		return films;
+	}
 }

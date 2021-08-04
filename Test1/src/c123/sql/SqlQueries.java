@@ -21,4 +21,6 @@ public class SqlQueries {
 			+ "set title = ?, description = ?, release_year = ?, \r\n"
 			+ "language_id = ?, rental_duration = ?, rental_rate = ?, length = ?,\r\n"
 			+ "replacement_cost = ?, rating = ?, special_features = ?,last_update = ?\r\n" + "WHERE film_id = ?;";
+
+	public static final String SELECT_FILMS_BY_COLUMN = "SELECT * FROM sakila.film ORDER BY ? limit 10;";
 }

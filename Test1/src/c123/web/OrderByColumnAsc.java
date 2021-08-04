@@ -1,8 +1,7 @@
 package c123.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -26,18 +25,68 @@ public class OrderByColumnAsc extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Film> films = filmService.findAllFilms();
-		List<Integer> lengths = new ArrayList<Integer>();
-		for (int i = 0; i < films.size(); i++) {
-			lengths.add(films.get(i).getLength());
-		}
-		Collections.sort(lengths);
+		String column = request.getParameter("length");
+		System.out.println("column is: " + column);
+		List<Film> films = filmService.selectFilmsByColumn(column);
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.print("<html>");
+		out.print("<head>");
+		out.print("<link rel='stylesheet' href='WebContent/CSS/designtable.css'>");
+		out.print("<style type='text/css'>");
+		out.print("table {width: 100%;border-collapse: collapse;}");
+		out.print("table td, th {border: 1px solid #00061a;}");
+		out.print("table td {text-align: center}");
+		out.print("</style>");
+		out.print("</head>");
 
+		out.print("<body>");
+		out.print("<div>");
+		out.print("<h1 align='center'>Table Films Order</h1>");
+		out.print("<hr>");
+		out.print("<table style='width: 100%;border-collapse: collapse;border: 1px solid #00061a;'>");
+
+		out.print("<tr>");
+		out.print("<th>ID</th>");
+		out.print("<th>Title</th>");
+		out.print("<th>Description</th>");
+		out.print("<th>Release Year</th>");
+		out.print("<th>Language Id</th>");
+		out.print("<th>Original Language Id</th>");
+		out.print("<th>Rental Duration</th>");
+		out.print("<th>Rental Rate</th>");
+		out.print("<th><a>Length</a></th>");
+		out.print("<th>Replacement Cost</th>");
+		out.print("<th>Rating</th>");
+		out.print("<th>Special Features</th>");
+		out.print("<th>Last Update</th>");
+		out.print("</tr>");
+
+		for (Film film : films) {
+			out.print("<tr>");
+			out.print("<td>" + film.getFilm_id() + "</td>");
+			out.print("<td>" + film.getTitle() + "</td>");
+			out.print("<td>" + film.getDescription() + "</td>");
+			out.print("<td>" + film.getRelease_year() + "</td>");
+			out.print("<td>" + film.getLanguage_id() + "</td>");
+			out.print("<td>" + film.getOriginal_language_id() + "</td>");
+			out.print("<td>" + film.getRental_duration() + "</td>");
+			out.print("<td>" + film.getRental_rate() + "</td>");
+			out.print("<td>" + film.getLength() + "</td>");
+			out.print("<td>" + film.getReplacement_cost() + "</td>");
+			out.print("<td>" + film.getRating() + "</td>");
+			out.print("<td>" + film.getSpecial_features() + "</td>");
+			out.print("<td>" + film.getLast_update() + "</td>");
+			out.print("</tr>");
+		}
+		out.print("</table>");
+		out.print("</div>");
+		out.print("</body>");
+		out.print("</html>");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 }

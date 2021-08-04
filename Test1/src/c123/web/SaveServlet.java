@@ -3,8 +3,6 @@ package c123.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,10 +47,8 @@ public class SaveServlet extends HttpServlet {
 		out.println("<html><body>");
 		out.println("Create " + film.getTitle() + " successfully");
 		out.println("</body></html>");
-		RequestDispatcher rs = request.getRequestDispatcher("film.html");
-		rs.forward(request, response);
+		request.getRequestDispatcher("film.html").include(request, response);
 		out.close();
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

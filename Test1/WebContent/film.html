@@ -51,6 +51,7 @@
 	    if (c !== cPrev) { // different column is clicked, so sort by the new column
 	        arrTable.sort(
 	            function (a, b) {
+	            	console.log(a + "," + b)
 	                if (a[c] === b[c]) {
 	                    return 0;
 	                } else {
@@ -91,30 +92,6 @@ table td {
 th {
 	cursor: pointer;
 }
-
-.slider_pagination_btn {
-	display: inline-block;
-	padding: 6px;
-	margin: 5px;
-	background-color: #ccc;
-	border-radius: 10px;
-	cursor: pointer;
-	/* override default button styles */
-	border: none;
-	outline: none;
-}
-
-.slider_pagination_btn:hover {
-	background-color: #aaa;
-}
-
-.slider_pagination_btn:focus {
-	background-color: #777;
-}
-
-.slider .slider_pagination_btn--sel {
-	background-color: black
-}
 </style>
 </head>
 <body data-ng-app="filmApp" data-ng-controller="filmServlet">
@@ -134,7 +111,7 @@ th {
 				<th onclick="sortBy(5)">Original Language Id</th>
 				<th onclick="sortBy(6)">Rental Duration</th>
 				<th onclick="sortBy(7)">Rental Rate</th>
-				<th onclick="sortBy(8)">Length</th>
+				<th><a href="OrderByColumnAsc?length=length">Length</a></th>
 				<th onclick="sortBy(9)">Replacement Cost</th>
 				<th onclick="sortBy(10)">Rating</th>
 				<th onclick="sortBy(11)">Special Features</th>

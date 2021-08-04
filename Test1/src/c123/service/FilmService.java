@@ -16,4 +16,6 @@ public interface FilmService {
 
 	void addFilm(Film film);
 
+	List<Film> selectFilmsByColumn(String column);
+
 }

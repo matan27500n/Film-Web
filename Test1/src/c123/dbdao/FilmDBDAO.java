@@ -133,4 +133,35 @@ public class FilmDBDAO implements FilmDAO {
 		ps5.executeUpdate();
 		return status;
 	}
+
+	@Override
+	public List<Film> selectFilmsOrderByColumn(String column) throws SQLException {
+		List<Film> films = new ArrayList<Film>();
+		Connection con = ConnectionUtil.getConnection();
+		column = column.replace("'", "''");
+		PreparedStatement ps = con.prepareStatement(SqlQueries.SELECT_FILMS_BY_COLUMN);
+		// ps.setString(1, column);
+		System.out.println(ps);
+		System.out.println(column);
+		ResultSet rs = ps.executeQuery();
+
+		while (rs.next()) {
+			int film_id = rs.getInt(1);
+			String title = rs.getString(2);
+			String description = rs.getString(3);
+			int release_year = rs.getInt(4);
+			int language_id = rs.getInt(5);
+			int original_language_id = rs.getInt(6);
+			int rental_duration = rs.getInt(7);
+			double rental_rate = rs.getDouble(8);
+			int length = rs.getInt(9);
+			double replacement_cost = rs.getDouble(10);
+			String rating = rs.getString(11);
+			String special_features = rs.getString(12);
+			Timestamp last_update = rs.getTimestamp(13);
+			films.add(new Film(film_id, title, description, release_year, language_id, original_language_id,
+					rental_duration, rental_rate, length, replacement_cost, rating, special_features, last_update));
+		}
+		return films;
+	}
 }
