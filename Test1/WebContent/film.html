@@ -51,10 +51,6 @@ table td {
 	text-align: center
 }
 
-th {
-	cursor: pointer;
-}
-
 form {
 	width: 50%;
 	height: 450px;
@@ -69,84 +65,85 @@ input {
 </style>
 </head>
 <body data-ng-app="filmApp" data-ng-controller="filmServlet">
-	<div>
-		<h1 align="center">Table Films</h1>
-		<hr>
-		<form action="OrderByColumnAsc" method="GET">
-			<fieldset class="form-group col-md-6">
-				<label>Order By</label> <select class="form-control" required
-					name="column">
-					<option>film_id</option>
-					<option>title</option>
-					<option>description</option>
-					<option>release_year</option>
-					<option>language_id</option>
-					<option>rental_duration</option>
-					<option>rental_rate</option>
-					<option>length</option>
-					<option>replacement_cost</option>
-					<option>rating</option>
-					<option>special_features</option>
-					<option>last_update</option>
-				</select>
-			</fieldset>
-			<fieldset class="form-group col-md-6">
-				<label>limit</label> <input type="number" class="form-control"
-					name="limit" required="required">
-			</fieldset>
-			<fieldset class="form-group col-md-6">
-				<label>Skip</label> <input type="number" class="form-control"
-					name="skip" required="required">
-			</fieldset>
-			<fieldset class="form-group col-md-6">
-				<label>Descending</label> <select class="form-control" required
-					name="descending">
-					<option>No</option>
-					<option>Yes</option>
-				</select>
-			</fieldset>
-			<button type="submit" class="btn btn-success">Sort</button>
-		</form>
-		<a href="filmForm.html" class="btn btn-info" role="button">Add New
-			Film</a> <input type="text" data-ng-model="searchText"
-			placeholder="Search" class="form-control" />
-		<table id="sortable" class="tableClass">
-			<tr>
-				<th>ID</th>
-				<th>Title</th>
-				<th>Description</th>
-				<th>Release Year</th>
-				<th>Language Id</th>
-				<th>Original Language Id</th>
-				<th>Rental Duration</th>
-				<th>Rental Rate</th>
-				<th>Length</th>
-				<th>Replacement Cost</th>
-				<th>Rating</th>
-				<th>Special Features</th>
-				<th>Last Update</th>
-				<th>Actions</th>
-			</tr>
-			<tr data-ng-repeat="item in filmlist | filter:search">
-				<td>{{item.film_id}}</td>
-				<td>{{item.title}}</td>
-				<td>{{item.description}}</td>
-				<td>{{item.release_year}}</td>
-				<td>{{item.language_id}}</td>
-				<td>{{item.original_language_id}}</td>
-				<td>{{item.rental_duration}}</td>
-				<td>{{item.rental_rate}}</td>
-				<td>{{item.length}}</td>
-				<td>{{item.replacement_cost}}</td>
-				<td>{{item.rating}}</td>
-				<td>{{item.special_features}}</td>
-				<td>{{item.last_update}}</td>
-				<td><a href="UpdateServlet?film_id={{item.film_id}}"
-					class="btn btn-warning" role="button">Update</a> <a
-					href="DeleteServlet?film_id={{item.film_id}}"
-					class="btn btn-danger" role="button">Delete</a>
-			</tr>
-		</table>
-	</div>
+
+	<h1 align="center">Table Films</h1>
+	<hr>
+	<form action="OrderByColumnAsc" method="GET">
+		<fieldset class="form-group col-md-6">
+			<label>Order By</label> <select class="form-control" required
+				name="column">
+				<option>film_id</option>
+				<option>title</option>
+				<option>description</option>
+				<option>release_year</option>
+				<option>language_id</option>
+				<option>rental_duration</option>
+				<option>rental_rate</option>
+				<option>length</option>
+				<option>replacement_cost</option>
+				<option>rating</option>
+				<option>special_features</option>
+				<option>last_update</option>
+			</select>
+		</fieldset>
+		<fieldset class="form-group col-md-6">
+			<label>limit</label> <input type="number" class="form-control"
+				name="limit" required="required">
+		</fieldset>
+		<fieldset class="form-group col-md-6">
+			<label>Skip</label> <input type="number" class="form-control"
+				name="skip" required="required">
+		</fieldset>
+		<fieldset class="form-group col-md-6">
+			<label>Descending</label> <select class="form-control" required
+				name="descending">
+				<option>No</option>
+				<option>Yes</option>
+			</select>
+		</fieldset>
+		<button type="submit" class="btn btn-success">Sort</button>
+	</form>
+	<a href="filmForm.html" class="btn btn-info" role="button">Add New
+		Film</a>
+	<input type="text" data-ng-model="searchText" placeholder="Search"
+		class="form-control" />
+	<table id="sortable" class="tableClass">
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Description</th>
+			<th>Release Year</th>
+			<th>Language Id</th>
+			<th>Original Language Id</th>
+			<th>Rental Duration</th>
+			<th>Rental Rate</th>
+			<th>Length</th>
+			<th>Replacement Cost</th>
+			<th>Rating</th>
+			<th>Special Features</th>
+			<th>Last Update</th>
+			<th>Actions</th>
+		</tr>
+		<tr data-ng-repeat="item in filmlist | filter:search">
+			<td>{{item.film_id}}</td>
+			<td>{{item.title}}</td>
+			<td>{{item.description}}</td>
+			<td>{{item.release_year}}</td>
+			<td>{{item.language_id}}</td>
+			<td>{{item.original_language_id}}</td>
+			<td>{{item.rental_duration}}</td>
+			<td>{{item.rental_rate}}</td>
+			<td>{{item.length}}</td>
+			<td>{{item.replacement_cost}}</td>
+			<td>{{item.rating}}</td>
+			<td>{{item.special_features}}</td>
+			<td>{{item.last_update}}</td>
+			<td><a href="UpdateServlet?film_id={{item.film_id}}"
+				class="btn btn-warning" role="button">Update</a> <a
+				href="DeleteServlet?film_id={{item.film_id}}" class="btn btn-danger"
+				role="button">Delete</a>
+		</tr>
+	</table>
+
 </body>
 </html>
