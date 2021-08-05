@@ -30,15 +30,17 @@ public class FilmServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req, resp);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<Film> films = filmService.findAllFilms();
-		PrintWriter out = resp.getWriter();
-		resp.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
 		Gson gson = new Gson();
 		if (films.size() > 0) {
 			String jsonData = gson.toJson(films);
