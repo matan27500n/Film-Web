@@ -15,12 +15,12 @@ import c123.model.Film;
 import c123.service.FilmService;
 import c123.service.FilmServiceImp;
 
-@WebServlet("/OrderByColumnAsc")
-public class OrderByColumnAsc extends HttpServlet {
+@WebServlet("/OrderByColumn")
+public class OrderByColumn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private FilmService filmService;
 
-	public OrderByColumnAsc() {
+	public OrderByColumn() {
 		filmService = new FilmServiceImp();
 	}
 
@@ -49,7 +49,7 @@ public class OrderByColumnAsc extends HttpServlet {
 
 		out.print("<body>");
 		out.print("<div>");
-		out.print("<h1 align='center'>Table Films Order</h1>");
+		out.print("<h1 align='center'>Table Films Order By: " + column + "</h1>");
 		out.print("<hr>");
 		out.print("<table style='width: 100%;border-collapse: collapse;border: 1px solid #00061a;'>");
 
