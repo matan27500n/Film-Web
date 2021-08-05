@@ -2,6 +2,7 @@ package c123.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -25,14 +26,20 @@ public class OrderByColumnAsc extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String column = request.getParameter("length");
-		System.out.println("column is: " + column);
-		List<Film> films = filmService.selectFilmsByColumn(column);
+		String column = request.getParameter("column");
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int skip = Integer.parseInt(request.getParameter("skip"));
+		String descending = request.getParameter("descending");
+		List<Film> films = new ArrayList<Film>();
+		if (descending.equals("No")) {
+			films = filmService.selectFilmsByColumn(column, limit, skip);
+		} else {
+			films = filmService.selectFilmsByColumnDesc(column, limit, skip);
+		}
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.print("<html>");
 		out.print("<head>");
-		out.print("<link rel='stylesheet' href='WebContent/CSS/designtable.css'>");
 		out.print("<style type='text/css'>");
 		out.print("table {width: 100%;border-collapse: collapse;}");
 		out.print("table td, th {border: 1px solid #00061a;}");

@@ -22,5 +22,30 @@ public class SqlQueries {
 			+ "language_id = ?, rental_duration = ?, rental_rate = ?, length = ?,\r\n"
 			+ "replacement_cost = ?, rating = ?, special_features = ?,last_update = ?\r\n" + "WHERE film_id = ?;";
 
-	public static final String SELECT_FILMS_BY_COLUMN = "SELECT * FROM sakila.film ORDER BY ? limit 10;";
+	public static final String SELECT_FILMS_ORDDER_BY_FILM_ID = "SELECT * FROM sakila.film ORDER BY film_id limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_TITLE = "SELECT * FROM sakila.film ORDER BY title limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_DESCRIPTION = "SELECT * FROM sakila.film ORDER BY description limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_RELEASE_YEAR = "SELECT * FROM sakila.film ORDER BY release_year limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_LANGUAGE_ID = "SELECT * FROM sakila.film ORDER BY language_id limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_RENTAL_DURATION = "SELECT * FROM sakila.film ORDER BY rental_duration limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_RENTAL_RATE = "SELECT * FROM sakila.film ORDER BY rental_rate limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_LENGTH = "SELECT * FROM sakila.film ORDER BY length limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_REPLACEMENT_COST = "SELECT * FROM sakila.film ORDER BY replacement_cost limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_RATING = "SELECT * FROM sakila.film ORDER BY rating limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_SPECIAL_FEATURES = "SELECT * FROM sakila.film ORDER BY special_features limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_SPECIAL_LAST_UPDATE = "SELECT * FROM sakila.film ORDER BY last_update limit ? OFFSET ?;";
+
+	public static final String SELECT_FILMS_ORDDER_BY_FILM_ID_DESC = "SELECT * FROM sakila.film ORDER BY film_id DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_TITLE_DESC = "SELECT * FROM sakila.film ORDER BY title DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_DESCRIPTION_DESC = "SELECT * FROM sakila.film ORDER BY description DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_RELEASE_YEAR_DESC = "SELECT * FROM sakila.film ORDER BY release_year DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_LANGUAGE_ID_DESC = "SELECT * FROM sakila.film ORDER BY language_id DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_RENTAL_DURATION_DESC = "SELECT * FROM sakila.film ORDER BY rental_duration DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_RENTAL_RATE_DESC = "SELECT * FROM sakila.film ORDER BY rental_rate DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_LENGTH_DESC = "SELECT * FROM sakila.film ORDER BY length DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_REPLACEMENT_COST_DESC = "SELECT * FROM sakila.film ORDER BY replacement_cost DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_RATING_DESC = "SELECT * FROM sakila.film ORDER BY rating DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_SPECIAL_FEATURES_DESC = "SELECT * FROM sakila.film ORDER BY special_features DESC limit ? OFFSET ?;";
+	public static final String SELECT_FILMS_ORDER_BY_SPECIAL_LAST_UPDATE_DESC = "SELECT * FROM sakila.film ORDER BY last_update DESC limit ? OFFSET ?;";
+
 }

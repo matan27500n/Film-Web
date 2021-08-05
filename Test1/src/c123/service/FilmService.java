@@ -16,6 +16,8 @@ public interface FilmService {
 
 	void addFilm(Film film);
 
-	List<Film> selectFilmsByColumn(String column);
+	List<Film> selectFilmsByColumn(String column, int limit, int skip);
+
+	List<Film> selectFilmsByColumnDesc(String column, int limit, int skip);
 
 }

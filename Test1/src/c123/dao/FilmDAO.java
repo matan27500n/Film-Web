@@ -16,5 +16,7 @@ public interface FilmDAO {
 
 	int deleteFilm(int film_id) throws SQLException;
 
-	List<Film> selectFilmsOrderByColumn(String column) throws SQLException;
+	List<Film> selectFilmsOrderByColumn(String column, int limit, int skip) throws SQLException;
+
+	List<Film> selectFilmsOrderByColumnDesc(String column, int limit, int skip) throws SQLException;
 }

@@ -67,11 +67,21 @@ public class FilmServiceImp implements FilmService {
 	}
 
 	@Override
-	public List<Film> selectFilmsByColumn(String column) {
-		System.out.println("service: " + column);
+	public List<Film> selectFilmsByColumn(String column, int limit, int skip) {
 		List<Film> films = new ArrayList<Film>();
 		try {
-			films = filmDBDAO.selectFilmsOrderByColumn(column);
+			films = filmDBDAO.selectFilmsOrderByColumn(column, limit, skip);
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		return films;
+	}
+
+	@Override
+	public List<Film> selectFilmsByColumnDesc(String column, int limit, int skip) {
+		List<Film> films = new ArrayList<Film>();
+		try {
+			films = filmDBDAO.selectFilmsOrderByColumnDesc(column, limit, skip);
 		} catch (SQLException e) {
 			System.err.println(e);
 		}
