@@ -1,12 +1,11 @@
 package c123.service;
 
-import java.util.List;
-
+import java.util.Iterator;
 import c123.model.Film;
 
 public interface FilmService {
 
-	List<Film> findAllFilms();
+	Iterator<Film> findAllFilms();
 
 	Film findFilmById(int film_id);
 
@@ -16,8 +15,8 @@ public interface FilmService {
 
 	void addFilm(Film film);
 
-	List<Film> selectFilmsByColumn(String column, int limit, int skip);
+	Iterator<Film> selectFilmsByColumn(String column, int limit, int skip);
 
-	List<Film> selectFilmsByColumnDesc(String column, int limit, int skip);
+	Iterator<Film> selectFilmsByColumnDesc(String column, int limit, int skip);
 
 }

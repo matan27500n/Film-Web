@@ -1,7 +1,7 @@
 package c123.dao;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Iterator;
 import c123.model.Film;
 
 public interface FilmDAO {
@@ -12,11 +12,11 @@ public interface FilmDAO {
 
 	Film selectFilmById(int film_id) throws SQLException;
 
-	List<Film> selectAllFilms() throws SQLException;
+	Iterator<Film> selectAllFilms() throws SQLException;
 
 	int deleteFilm(int film_id) throws SQLException;
 
-	List<Film> selectFilmsOrderByColumn(String column, int limit, int skip) throws SQLException;
+	Iterator<Film> selectFilmsOrderByColumn(String column, int limit, int skip) throws SQLException;
 
-	List<Film> selectFilmsOrderByColumnDesc(String column, int limit, int skip) throws SQLException;
+	Iterator<Film> selectFilmsOrderByColumnDesc(String column, int limit, int skip) throws SQLException;
 }

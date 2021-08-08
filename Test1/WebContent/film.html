@@ -16,6 +16,7 @@
 			method : "GET"
 		}).then(function(response) {
 			$scope.filmlist = response.data;
+			console.log(filmlist);
 			console.log(response);
 
 		}, function(response) {

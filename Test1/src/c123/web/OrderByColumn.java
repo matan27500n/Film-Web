@@ -3,6 +3,7 @@ package c123.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -31,10 +32,15 @@ public class OrderByColumn extends HttpServlet {
 		int skip = Integer.parseInt(request.getParameter("skip"));
 		String descending = request.getParameter("descending");
 		List<Film> films = new ArrayList<Film>();
+		Iterator<Film> iterator = null;
 		if (descending.equals("No")) {
-			films = filmService.selectFilmsByColumn(column, limit, skip);
+			iterator = filmService.selectFilmsByColumn(column, limit, skip);
 		} else {
-			films = filmService.selectFilmsByColumnDesc(column, limit, skip);
+			iterator = filmService.selectFilmsByColumnDesc(column, limit, skip);
+		}
+		while (iterator.hasNext()) {
+			Film film = (Film) iterator.next();
+			films.add(film);
 		}
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();

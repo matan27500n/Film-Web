@@ -1,8 +1,7 @@
 package c123.service;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 import c123.dbdao.FilmDBDAO;
 import c123.model.Film;
 
@@ -14,8 +13,8 @@ public class FilmServiceImp implements FilmService {
 	private FilmDBDAO filmDBDAO = new FilmDBDAO();
 
 	@Override
-	public List<Film> findAllFilms() {
-		List<Film> films = new ArrayList<Film>();
+	public Iterator<Film> findAllFilms() {
+		Iterator<Film> films = null;
 		try {
 			films = filmDBDAO.selectAllFilms();
 		} catch (SQLException e) {
@@ -67,8 +66,8 @@ public class FilmServiceImp implements FilmService {
 	}
 
 	@Override
-	public List<Film> selectFilmsByColumn(String column, int limit, int skip) {
-		List<Film> films = new ArrayList<Film>();
+	public Iterator<Film> selectFilmsByColumn(String column, int limit, int skip) {
+		Iterator<Film> films = null;
 		try {
 			films = filmDBDAO.selectFilmsOrderByColumn(column, limit, skip);
 		} catch (SQLException e) {
@@ -78,8 +77,8 @@ public class FilmServiceImp implements FilmService {
 	}
 
 	@Override
-	public List<Film> selectFilmsByColumnDesc(String column, int limit, int skip) {
-		List<Film> films = new ArrayList<Film>();
+	public Iterator<Film> selectFilmsByColumnDesc(String column, int limit, int skip) {
+		Iterator<Film> films = null;
 		try {
 			films = filmDBDAO.selectFilmsOrderByColumnDesc(column, limit, skip);
 		} catch (SQLException e) {

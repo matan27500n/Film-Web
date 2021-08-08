@@ -2,6 +2,8 @@ package c123.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -38,10 +40,12 @@ public class FilmServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Film> films = filmService.findAllFilms();
+		Iterator<Film> iterator = filmService.findAllFilms();
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		Gson gson = new Gson();
+		List<Film> films = new ArrayList<Film>();
+		iterator.forEachRemaining(films::add);
 		if (films.size() > 0) {
 			String jsonData = gson.toJson(films);
 			out.print(jsonData);

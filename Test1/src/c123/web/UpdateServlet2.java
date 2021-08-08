@@ -11,14 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import c123.model.Film;
+import c123.service.FilmService;
 import c123.service.FilmServiceImp;
 
 @WebServlet("/UpdateServlet2")
 public class UpdateServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private FilmService filmService;
 
 	public UpdateServlet2() {
-		super();
+		filmService = new FilmServiceImp();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,8 +46,7 @@ public class UpdateServlet2 extends HttpServlet {
 		Timestamp last_update = new Timestamp(System.currentTimeMillis());
 		Film film = new Film(film_id, title, description, release_year, language_id, original_language_id,
 				rental_duration, rental_rate, length, replacement_cost, rating, special_features, last_update);
-		FilmServiceImp filmServiceImp = new FilmServiceImp();
-		int status = filmServiceImp.updateFilm(film);
+		int status = filmService.updateFilm(film);
 		if (status > 0) {
 			out.println("Record updated succesfully...");
 			response.sendRedirect("film.html");

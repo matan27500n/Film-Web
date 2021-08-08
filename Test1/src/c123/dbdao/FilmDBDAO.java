@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import c123.dao.FilmDAO;
@@ -14,38 +15,58 @@ import c123.sql.SqlQueries;
 import c123.util.ConnectionUtil;
 
 public class FilmDBDAO implements FilmDAO {
+	private List<Film> films;
+	private PreparedStatement ps = null;
+	private Connection con = null;
+	private int film_id;
+	private String title;
+	private String description;
+	private int release_year;
+	private int language_id;
+	private int original_language_id;
+	private int rental_duration;
+	private double rental_rate;
+	private int length;
+	private double replacement_cost;
+	private String rating;
+	private String special_features;
+	private Timestamp last_update;
 
 	@Override
-	public List<Film> selectAllFilms() throws SQLException {
-		List<Film> films = new ArrayList<Film>();
-		Connection con = ConnectionUtil.getConnection();
-		PreparedStatement ps = con.prepareStatement(SqlQueries.SELECT_ALL_FILMS);
+	public Iterator<Film> selectAllFilms() throws SQLException {
+		films = new ArrayList<Film>();
+		con = ConnectionUtil.getConnection();
+		ps = con.prepareStatement(SqlQueries.SELECT_ALL_FILMS);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			int film_id = rs.getInt(1);
-			String title = rs.getString(2);
-			String description = rs.getString(3);
-			int release_year = rs.getInt(4);
-			int language_id = rs.getInt(5);
-			int original_language_id = rs.getInt(6);
-			int rental_duration = rs.getInt(7);
-			double rental_rate = rs.getDouble(8);
-			int length = rs.getInt(9);
-			double replacement_cost = rs.getDouble(10);
-			String rating = rs.getString(11);
-			String special_features = rs.getString(12);
-			Timestamp last_update = rs.getTimestamp(13);
+			film_id = rs.getInt(1);
+			title = rs.getString(2);
+			description = rs.getString(3);
+			release_year = rs.getInt(4);
+			language_id = rs.getInt(5);
+			original_language_id = rs.getInt(6);
+			rental_duration = rs.getInt(7);
+			rental_rate = rs.getDouble(8);
+			length = rs.getInt(9);
+			replacement_cost = rs.getDouble(10);
+			rating = rs.getString(11);
+			special_features = rs.getString(12);
+			last_update = rs.getTimestamp(13);
 			films.add(new Film(film_id, title, description, release_year, language_id, original_language_id,
 					rental_duration, rental_rate, length, replacement_cost, rating, special_features, last_update));
 		}
-		return films;
+		con.close();
+		ps.close();
+		rs.close();
+		Iterator<Film> iterator = films.iterator();
+		return iterator;
 	}
 
 	@Override
 	public int insertFilm(Film film) throws SQLException {
 		int status = 0;
-		Connection con = ConnectionUtil.getConnection();
-		PreparedStatement ps = con.prepareStatement(SqlQueries.INSERT_FILM);
+		con = ConnectionUtil.getConnection();
+		ps = con.prepareStatement(SqlQueries.INSERT_FILM);
 		ps.setString(1, film.getTitle());
 		ps.setString(2, film.getDescription());
 		ps.setInt(3, film.getRelease_year());
@@ -60,14 +81,15 @@ public class FilmDBDAO implements FilmDAO {
 		ps.setTimestamp(12, film.getLast_update());
 		status = ps.executeUpdate();
 		con.close();
+		ps.close();
 		return status;
 	}
 
 	@Override
 	public int updateFilm(Film film) throws SQLException {
 		int status = 0;
-		Connection con = ConnectionUtil.getConnection();
-		PreparedStatement ps = con.prepareStatement(SqlQueries.UPDATE_FILM);
+		con = ConnectionUtil.getConnection();
+		ps = con.prepareStatement(SqlQueries.UPDATE_FILM);
 		ps.setString(1, film.getTitle());
 		ps.setString(2, film.getDescription());
 		ps.setInt(3, film.getRelease_year());
@@ -82,40 +104,43 @@ public class FilmDBDAO implements FilmDAO {
 		ps.setInt(12, film.getFilm_id());
 		status = ps.executeUpdate();
 		con.close();
+		ps.close();
 		return status;
 	}
 
 	@Override
 	public Film selectFilmById(int film_id) throws SQLException {
 		Film film = null;
-		Connection con = ConnectionUtil.getConnection();
-		PreparedStatement ps = con.prepareStatement(SqlQueries.SELECT_FILM_BY_ID);
+		con = ConnectionUtil.getConnection();
+		ps = con.prepareStatement(SqlQueries.SELECT_FILM_BY_ID);
 		ps.setInt(1, film_id);
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
-			String title = rs.getString(2);
-			String description = rs.getString(3);
-			int release_year = rs.getInt(4);
-			int language_id = rs.getInt(5);
-			int original_language_id = rs.getInt(6);
-			int rental_duration = rs.getInt(7);
-			double rental_rate = rs.getDouble(8);
-			int length = rs.getInt(9);
-			double replacement_cost = rs.getDouble(10);
-			String rating = rs.getString(11);
-			String special_features = rs.getString(12);
-			Timestamp last_update = rs.getTimestamp(13);
+			title = rs.getString(2);
+			description = rs.getString(3);
+			release_year = rs.getInt(4);
+			language_id = rs.getInt(5);
+			original_language_id = rs.getInt(6);
+			rental_duration = rs.getInt(7);
+			rental_rate = rs.getDouble(8);
+			length = rs.getInt(9);
+			replacement_cost = rs.getDouble(10);
+			rating = rs.getString(11);
+			special_features = rs.getString(12);
+			last_update = rs.getTimestamp(13);
 			film = new Film(film_id, title, description, release_year, language_id, original_language_id,
 					rental_duration, rental_rate, length, replacement_cost, rating, special_features, last_update);
 		}
 		con.close();
+		ps.close();
+		rs.close();
 		return film;
 	}
 
 	@Override
 	public int deleteFilm(int film_id) throws SQLException {
 		int status = 1;
-		Connection con = ConnectionUtil.getConnection();
+		con = ConnectionUtil.getConnection();
 		PreparedStatement ps1 = con.prepareStatement(SqlQueries.DELETE_FILM_ACTOR);
 		ps1.setInt(1, film_id);
 		ps1.executeUpdate();
@@ -131,14 +156,18 @@ public class FilmDBDAO implements FilmDAO {
 		PreparedStatement ps5 = con.prepareStatement(SqlQueries.DELETE_FILM_BY_ID);
 		ps5.setInt(1, film_id);
 		ps5.executeUpdate();
+		con.close();
+		ps1.close();
+		ps2.close();
+		ps3.close();
+		ps4.close();
+		ps5.close();
 		return status;
 	}
 
 	@Override
-	public List<Film> selectFilmsOrderByColumn(String column, int limit, int skip) throws SQLException {
-		List<Film> films = new ArrayList<Film>();
-		Connection con = ConnectionUtil.getConnection();
-		PreparedStatement ps = null;
+	public Iterator<Film> selectFilmsOrderByColumn(String column, int limit, int skip) throws SQLException {
+		con = ConnectionUtil.getConnection();
 		switch (column) {
 		case "film_id":
 			ps = con.prepareStatement(SqlQueries.SELECT_FILMS_ORDDER_BY_FILM_ID);
@@ -177,35 +206,16 @@ public class FilmDBDAO implements FilmDAO {
 			ps = con.prepareStatement(SqlQueries.SELECT_FILMS_ORDER_BY_SPECIAL_LAST_UPDATE);
 			break;
 		}
-		ps.setInt(1, limit);
-		ps.setInt(2, skip);
-		ResultSet rs = ps.executeQuery();
-
-		while (rs.next()) {
-			int film_id = rs.getInt(1);
-			String title = rs.getString(2);
-			String description = rs.getString(3);
-			int release_year = rs.getInt(4);
-			int language_id = rs.getInt(5);
-			int original_language_id = rs.getInt(6);
-			int rental_duration = rs.getInt(7);
-			double rental_rate = rs.getDouble(8);
-			int length = rs.getInt(9);
-			double replacement_cost = rs.getDouble(10);
-			String rating = rs.getString(11);
-			String special_features = rs.getString(12);
-			Timestamp last_update = rs.getTimestamp(13);
-			films.add(new Film(film_id, title, description, release_year, language_id, original_language_id,
-					rental_duration, rental_rate, length, replacement_cost, rating, special_features, last_update));
-		}
-		return films;
+		films = getfilmsOrdered(ps, limit, skip);
+		Iterator<Film> iterator = films.iterator();
+		con.close();
+		ps.close();
+		return iterator;
 	}
 
 	@Override
-	public List<Film> selectFilmsOrderByColumnDesc(String column, int limit, int skip) throws SQLException {
-		List<Film> films = new ArrayList<Film>();
-		Connection con = ConnectionUtil.getConnection();
-		PreparedStatement ps = null;
+	public Iterator<Film> selectFilmsOrderByColumnDesc(String column, int limit, int skip) throws SQLException {
+		con = ConnectionUtil.getConnection();
 		switch (column) {
 		case "film_id":
 			ps = con.prepareStatement(SqlQueries.SELECT_FILMS_ORDDER_BY_FILM_ID_DESC);
@@ -244,24 +254,33 @@ public class FilmDBDAO implements FilmDAO {
 			ps = con.prepareStatement(SqlQueries.SELECT_FILMS_ORDER_BY_SPECIAL_LAST_UPDATE_DESC);
 			break;
 		}
+		films = getfilmsOrdered(ps, limit, skip);
+		Iterator<Film> iterator = films.iterator();
+		con.close();
+		ps.close();
+		return iterator;
+	}
+
+	private List<Film> getfilmsOrdered(PreparedStatement ps, int limit, int skip) throws SQLException {
+		films = new ArrayList<Film>();
 		ps.setInt(1, limit);
 		ps.setInt(2, skip);
 		ResultSet rs = ps.executeQuery();
 
 		while (rs.next()) {
-			int film_id = rs.getInt(1);
-			String title = rs.getString(2);
-			String description = rs.getString(3);
-			int release_year = rs.getInt(4);
-			int language_id = rs.getInt(5);
-			int original_language_id = rs.getInt(6);
-			int rental_duration = rs.getInt(7);
-			double rental_rate = rs.getDouble(8);
-			int length = rs.getInt(9);
-			double replacement_cost = rs.getDouble(10);
-			String rating = rs.getString(11);
-			String special_features = rs.getString(12);
-			Timestamp last_update = rs.getTimestamp(13);
+			film_id = rs.getInt(1);
+			title = rs.getString(2);
+			description = rs.getString(3);
+			release_year = rs.getInt(4);
+			language_id = rs.getInt(5);
+			original_language_id = rs.getInt(6);
+			rental_duration = rs.getInt(7);
+			rental_rate = rs.getDouble(8);
+			length = rs.getInt(9);
+			replacement_cost = rs.getDouble(10);
+			rating = rs.getString(11);
+			special_features = rs.getString(12);
+			last_update = rs.getTimestamp(13);
 			films.add(new Film(film_id, title, description, release_year, language_id, original_language_id,
 					rental_duration, rental_rate, length, replacement_cost, rating, special_features, last_update));
 		}
