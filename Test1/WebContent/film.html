@@ -16,7 +16,6 @@
 			method : "GET"
 		}).then(function(response) {
 			$scope.filmlist = response.data;
-			console.log(filmlist);
 			console.log(response);
 
 		}, function(response) {
@@ -44,43 +43,37 @@
 
 	<h1 align="center">Table Films</h1>
 	<hr>
-	<form action="OrderByColumn" method="GET">
-		<fieldset class="form-group col-md-6">
-			<label>Order By</label> <select class="form-control" required
-				name="column">
-				<option>film_id</option>
-				<option>title</option>
-				<option>description</option>
-				<option>release_year</option>
-				<option>language_id</option>
-				<option>rental_duration</option>
-				<option>rental_rate</option>
-				<option>length</option>
-				<option>replacement_cost</option>
-				<option>rating</option>
-				<option>special_features</option>
-				<option>last_update</option>
-			</select>
-		</fieldset>
-		<fieldset class="form-group col-md-6">
-			<label>limit</label> <input type="number" class="form-control"
-				name="limit" required="required">
-		</fieldset>
-		<fieldset class="form-group col-md-6">
-			<label>Skip</label> <input type="number" class="form-control"
-				name="skip" required="required">
-		</fieldset>
-		<fieldset class="form-group col-md-6">
-			<label>Descending</label> <select class="form-control" required
-				name="descending">
-				<option>No</option>
-				<option>Yes</option>
-			</select>
-		</fieldset>
+	<form action="OrderByColumn" method="GET"
+		style="display: inline; margin: 0px; padding: 0px;">
+		<label>Order By</label> <select style="width: 15%;" required
+			name="column">
+			<option>film_id</option>
+			<option>title</option>
+			<option>description</option>
+			<option>release_year</option>
+			<option>language_id</option>
+			<option>rental_duration</option>
+			<option>rental_rate</option>
+			<option>length</option>
+			<option>replacement_cost</option>
+			<option>rating</option>
+			<option>special_features</option>
+			<option>last_update</option>
+		</select> <label>limit</label> <input type="number" name="limit"
+			required="required" style="width: 10%;"> <label>Skip</label>
+		<input type="number" name="skip" required="required"
+			style="width: 10%;"> <label>Descending</label> <select
+			required name="descending" style="width: 15%;">
+			<option>No</option>
+			<option>Yes</option>
+		</select>
 		<button type="submit" class="btn btn-success">Sort</button>
 	</form>
-	<a href="filmForm.html" class="btn btn-info" role="button">Add New
-		Film</a>
+	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	<a href="filmForm.html" class="btn btn-info" role="button" style="">Add
+		New Film</a>
 	<input type="text" data-ng-model="searchText" placeholder="Search"
 		class="form-control" />
 	<table id="sortable" class="tableClass">
